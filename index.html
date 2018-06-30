@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>CrmHtml</title>
+  <style type="text/css">
+
+
+  </style>
+  <script src="https://cdn.bootcss.com/babel-polyfill/6.26.0/polyfill.min.js"></script>
+  <script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+  <script src="https://cdn.bootcss.com/underscore.js/1.9.0/underscore-min.js"></script>
+  <script>
+  $.ajaxSetup({ cache: false });
+  //调试时使用变量
+  var baseurl = ''
+  var uploadurl = 'uploadurl';
+  if (location.hostname === '127.0.0.1' && location.port === '8080') {
+    baseurl = 'http://localhost:63869/api/'
+    uploadurl = '';
+  }
+  window.defaultConfig = {
+    uploadurl: uploadurl,
+    baseurl: baseurl,
+    fileAccept: '.jpg,.png,.doc,.docx,.xls,.txt', //支持的文件
+    fileSize: 10, //附件大小 （MB）
+  }
+  window.vueConfig = {};
+
+  </script>
+  <script>
+  document.write("<script type='text/javascript' src='config.js?v=" + new Date().getTime() + "'><\/script>");
+
+  </script>
+</head>
+
+<body>
+  <div id="app"></div>
+  <!-- built files will be auto injected -->
+  <script>
+  //测试数据
+  var TestData = {
+    data: function() {
+      return {
+        tableData2: [{
+          date: '2016-05-02',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1518 弄'
+        }, {
+          date: '2016-05-04',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1518 弄'
+        }, {
+          date: '2016-05-01',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1518 弄'
+        }, {
+          date: '2016-05-03',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1518 弄'
+        }]
+
+      }
+    }
+  };
+
+  $(function() {
+    if ((location.hostname === '127.0.0.1' || location.hostname === 'localhost')) {
+      vueLoad(TestData);
+    }
+  })
+
+  </script>
+  <script>
+  Date.prototype.Format = function(fmt) { // author: meizz
+    var o = {
+      'M+': this.getMonth() + 1, // 月份
+      'd+': this.getDate(), // 日
+      'h+': this.getHours(), // 小时
+      'm+': this.getMinutes(), // 分
+      's+': this.getSeconds(), // 秒
+      'q+': Math.floor((this.getMonth() + 3) / 3), // 季度
+      'S': this.getMilliseconds() // 毫秒
+    }
+    var FMT = fmt
+    if (/(y+)/.test(FMT)) {
+      FMT = FMT.replace(RegExp.$1, (this.getFullYear() + '').substr(4 - RegExp.$1.length))
+    }
+    for (var k in o) {
+      if (new RegExp('(' + k + ')').test(FMT)) {
+        FMT = FMT.replace(RegExp.$1, (RegExp.$1.length === 1) ? (o[k]) : (('00' + o[k]).substr(('' + o[k]).length)))
+      }
+    }
+    return FMT
+  }
+  Date.prototype.addDays = function(days) {
+    var date = new Date()
+    var milliseconds = this.getTime() + days * 24 * 60 * 60 * 1000
+    date.setTime(milliseconds)
+    return new Date(date.getFullYear(), date.getMonth(), date.getDate())
+  }
+
+  Array.prototype.insert = function(index, item) {
+    this.splice(index, 0, item);
+  };
+  Array.prototype.remove = function(val) {
+    var index = this.indexOf(val);
+    if (index > -1) {
+      this.splice(index, 1);
+    }
+  };
+
+  </script>
+</body>
+
+</html>
